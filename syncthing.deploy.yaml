@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: syncthing
+  name: syncthing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: syncthing
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: syncthing
+    spec:
+      containers:
+        - image: linuxserver/syncthing
+          name: syncthing
+          resources: {}
+          volumeMounts:
+            - mountPath: "/config"
+              name: syncthing-storage
+      volumes:
+        - name: syncthing-storage
+          persistentVolumeClaim:
+           claimName: syncthing-pv
+status: {}
+

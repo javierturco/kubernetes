@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    run: syncthing
+  annotations:
+    nginx.ingress.kubernetes.io/lua-resty-waf: "active"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+#    certmanager.k8s.io/acme-challenge-type: http01
+#    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+  name: syncthing
+spec:
+  rules:
+  - host: alonemaybedriveniece.kube.um.edu.ar
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: syncthing
+          servicePort: 18384
+#  tls:
+#  - hosts:
+#    - <USER>.kube.um.edu.ar
+#    secretName: web-cert
+
